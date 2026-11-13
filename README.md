@@ -3,7 +3,7 @@
 **Alumno:** Axel Enrique Vasquez Peña  
 **Matrícula:** 2024-2388  
 **Asignatura:** Redes de Computadoras — Segundo Parcial  
-**Plataforma:** GNS3 2.2.61 sobre VMware Workstation (Windows 11)  
+**LInk del video:** https://youtu.be/vQhqx4WdDaw
 **Fecha de ejecución:** 13 de noviembre de 2026
 
 Implementación y verificación de los ocho requisitos del parcial sobre una topología
