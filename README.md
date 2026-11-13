@@ -4,7 +4,7 @@
 **Matrícula:** 2024-2388  
 **Asignatura:** Redes de Computadoras — Segundo Parcial  
 **LInk del video:** https://youtu.be/vQhqx4WdDaw
-**Fecha de ejecución:** 13 de noviembre de 2026
+
 
 Implementación y verificación de los ocho requisitos del parcial sobre una topología
 Cisco IOS + Windows Server 2022: DHCP, OSPF con autenticación, auditoría CIS,
