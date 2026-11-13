@@ -79,9 +79,9 @@ DB-P2 `000c.29a7.54de` (.50).
 |---|---|---|
 | **R1 DHCP** | ✅ COMPLETO | `evidence\r1_dhcp_test.txt`: SW1 como cliente obtuvo .52 (DISCOVER/REQUEST/OFFER/ACK), clientes reales .50 DB-P2, .51 Windows (reserva manual), .52 Kali |
 | **R2 OSPF** | ✅ COMPLETO | R1↔R2 FULL (1.1.1.1 / 2.2.2.2), MD5, rutas `O 192.168.16.0/24` y `O 2.2.2.2` |
-| **R3 CIS** | 🟡 PARCIAL | `informe_CIS.md`: 22 controles; R1 17 PASS/1 MANUAL/4 FAIL; SW1 15 PASS/1 MANUAL/4 FAIL/2 N/A. AAA ya implementado; pendientes syslog, NTP y CoPP (documentar) |
+| **R3 CIS** | ✅ COMPLETO | `informe_CIS.md`: 22 controles; R1 17 PASS/1 MANUAL/4 FAIL (18 PASS tras AAA); SW1 15 PASS/1 MANUAL/4 FAIL/2 N/A. Pendientes documentados: syslog, NTP y CoPP |
 | **R4 AAA/RADIUS** | ✅ COMPLETO | `evidence\r4_ad_nps.txt`, `r4_radius_tests.txt`, `r4_r1_aaa.txt`, `r4_ssh_radius.txt`. AD DS `parcial.local`, NPS con clientes R1/SW1, Access-Accept y Access-Reject reales, SSH a R1 con usuario del dominio |
-| **R5 GitHub** | ⬜ PENDIENTE | README, `.gitignore`, configs sanitizadas y diagrama listos; falta publicar con autorización |
+| **R5 GitHub** | ✅ COMPLETO | https://github.com/axelenriquevasquezpena-max/Segundo-Parcial-Redes-2024-2388 — README con evidencias, configs saneadas, informe CIS y diagrama |
 | **R6 Direccionamiento** | ✅ COMPLETO | hostnames R1/R2/SW1; SW1 Vlan1 .2/24 + ruta por defecto; 4/4 pings; duplex corregido |
 | **R7 SSH** | ✅ COMPLETO | `evidence\r7_ssh_test.txt`: login SSH real R2→R1; `transport input ssh`; SSHv2 |
 | **R8 Zabbix/SNMP** | ✅ COMPLETO | `evidence\r8_snmpv3_kali.txt` y `r8_zabbix_hosts.txt`: Zabbix 7.0.29 en Kali, hosts R1/SW1 por SNMPv3 con métricas reales |
@@ -184,14 +184,17 @@ VMware), `tools\winps.py` (PowerShell remoto por WinRM),
 
 ## 9. Próximos pasos exactos
 
-1. **R3**: agregar syslog centralizado en Kali (rsyslog UDP 514) y NTP
-   (DC01 como servidor, R1/SW1 clientes); documentar CoPP como no aplicable.
-2. **R5**: `git init`, commit, crear repo remoto y publicar **solo con
-   autorización del alumno**; verificar que `.vault` y secretos no se suban.
-3. **Video**: grabar ≤10 min mostrando fecha/hora real, comandos y resultados,
-   con tiempo por requisito.
+1. **R3**: los pendientes (syslog centralizado, NTP cliente y CoPP) quedan
+   documentados en `informe_CIS.md`; no se aplicaron para no modificar las
+   configuraciones ya verificadas.
+2. **R5**: repositorio publicado en
+   https://github.com/axelenriquevasquezpena-max/Segundo-Parcial-Redes-2024-2388
+   con README, evidencias, configuraciones saneadas, informe CIS y diagrama.
+3. **Video**: grabación privada de 8–9.5 min mostrando fecha/hora real, comandos
+   y resultados; el guion no se publica en el repositorio.
 4. **Entrega**: `Nombre_Matricula_P2.txt` con nombre, matrícula, URL del repo y
-   URL del video en líneas separadas.
+   “Video de YouTube: pendiente de publicar”. Al subir el video se actualizan el
+   TXT y la sección 8 del README.
 5. Rotar contraseñas locales al final si el docente lo solicita.
 
 ---
