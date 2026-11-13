@@ -1,0 +1,12 @@
+== 1) USUARIO VALIDO + PASSWORD CORRECTA ==
+Sent Access-Request Id 205 from 0.0.0.0:36286 to 192.168.16.51:1812 length 91
+Received Access-Accept Id 205 from 192.168.16.51:1812 to 192.168.16.52:36286 length 78
+== 2) USUARIO VALIDO + PASSWORD INCORRECTA ==
+(0) -: Expected Access-Accept got Access-Reject
+Sent Access-Request Id 246 from 0.0.0.0:47427 to 192.168.16.51:1812 length 107
+Received Access-Reject Id 246 from 192.168.16.51:1812 to 192.168.16.52:47427 length 20
+== 3) USUARIO INEXISTENTE ==
+(0) -: Expected Access-Accept got Access-Reject
+Sent Access-Request Id 24 from 0.0.0.0:39390 to 192.168.16.51:1812 length 108
+Received Access-Reject Id 24 from 192.168.16.51:1812 to 192.168.16.52:39390 length 20
+

@@ -1,0 +1,61 @@
+== CONFIGURACION APLICADA ==
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#aaa new-model
+R1(config)#radius-server host 192.168.16.51 auth-port 1812 acct-port 1813 key ********
+R1(config)#radius-server retransmit 2
+R1(config)#radius-server timeout 5
+R1(config)#radius-server deadtime 1
+R1(config)#ip radius source-interface FastEthernet0/0
+R1(config)#aaa authentication login default group radius local
+R1(config)#line vty 0 4
+R1(config-line)# login authentication default
+R1(config-line)# exit
+R1(config)#end
+R1#
+== VERIFICACION DE CONFIGURACION ==
+R1# show running-config | include aaa|radius-server|radius source
+aaa new-model
+aaa authentication login default group radius local
+aaa session-id common
+ip radius source-interface FastEthernet0/0 
+radius-server host 192.168.16.51 auth-port 1812 acct-port 1813 key 7 <REDACTADO>
+
+radius-server retransmit 2
+radius-server deadtime 1
+R1# show aaa servers
+
+RADIUS: id 1, priority 1, host 192.168.16.51, auth-port 1812, acct-port 1813
+     State: current UP, duration 4s, previous duration 0s
+     Dead: total time 0s, count 0
+     Authen: request 0, timeouts 0
+             Response: unexpected 0, server error 0, incorrect 0, time 0ms
+             Transaction: success 0, failure 0
+     Author: request 0, timeouts 0
+             Response: unexpected 0, server error 0, incorrect 0, time 0ms
+             Transaction: success 0, failure 0
+     Account: request 0, timeouts 0
+             Response: unexpected 0, server error 0, incorrect 0, time 0ms
+             Transaction: success 0, failure 0
+
+     Elapsed time since counters last cleared: 0m
+R1# show ip radius source-interface
+
+            ^
+% Invalid input detected at '^' marker.
+
+== PRUEBA AAA: CREDENCIALES VALIDAS ==
+Trying to authenticate with Servergroup radius
+User successfully authenticated
+
+== PRUEBA AAA: PASSWORD INCORRECTA ==
+Trying to authenticate with Servergroup radius
+
+== GUARDAR ==
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#end
+R1#write memory
+Building configuration...
+[OK]
+R1#

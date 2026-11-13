@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" font-family="Segoe UI,Arial,sans-serif">
+<rect width="1100" height="620" fill="#ffffff"/>
+<text x="24" y="34" font-size="20" font-weight="700" fill="#111">Segundo Parcial de Redes — Topología (GNS3 2.2.61)</text>
+<text x="24" y="56" font-size="12" fill="#555">Axel Enrique Vasquez Peña — 2024-2388 · generado desde el proyecto .gns3</text>
+<line x1="536" y1="233" x2="556" y2="362" stroke="#333" stroke-width="2.5"/>
+<text x="546" y="291" font-size="10" fill="#666" text-anchor="middle">f0/0 — Gi0/0</text>
+<line x1="536" y1="233" x2="536" y2="110" stroke="#333" stroke-width="2.5"/>
+<text x="536" y="166" font-size="10" fill="#666" text-anchor="middle">f0/1 — f0/0</text>
+<line x1="110" y1="467" x2="556" y2="362" stroke="#333" stroke-width="2.5"/>
+<text x="333" y="409" font-size="10" fill="#666" text-anchor="middle">e0 — Gi0/1</text>
+<line x1="556" y1="362" x2="990" y2="470" stroke="#333" stroke-width="2.5"/>
+<text x="773" y="410" font-size="10" fill="#666" text-anchor="middle">Gi0/2 — e0</text>
+<line x1="556" y1="362" x2="546" y2="468" stroke="#333" stroke-width="2.5"/>
+<text x="551" y="409" font-size="10" fill="#666" text-anchor="middle">Gi0/3 — e0</text>
+<rect x="476" y="207" width="120" height="52" rx="10" fill="#fff" stroke="#1f6feb" stroke-width="2.5"/>
+<text x="536" y="229" font-size="12.5" font-weight="700" fill="#111" text-anchor="middle">R1 (C2691)</text>
+<text x="536" y="247" font-size="10" fill="#444" text-anchor="middle">f0/0 192.168.16.1/24</text>
+<text x="536" y="260" font-size="10" fill="#444" text-anchor="middle">f0/1 10.16.0.1/30</text>
+<rect x="481" y="336" width="150" height="52" rx="10" fill="#fff" stroke="#8250df" stroke-width="2.5"/>
+<text x="556" y="358" font-size="12.5" font-weight="700" fill="#111" text-anchor="middle">SW1 (IOSvL2)</text>
+<text x="556" y="376" font-size="10" fill="#444" text-anchor="middle">Vlan1 192.168.16.2/24</text>
+<rect x="915" y="444" width="150" height="52" rx="10" fill="#fff" stroke="#0a7d4f" stroke-width="2.5"/>
+<text x="990" y="466" font-size="12.5" font-weight="700" fill="#111" text-anchor="middle">Kali Linux</text>
+<text x="990" y="484" font-size="10" fill="#444" text-anchor="middle">Zabbix / DHCP</text>
+<text x="990" y="512" font-size="10" fill="#0a7d4f" text-anchor="middle">Zabbix</text>
+<rect x="35" y="441" width="150" height="52" rx="10" fill="#fff" stroke="#0a7d4f" stroke-width="2.5"/>
+<text x="110" y="463" font-size="12.5" font-weight="700" fill="#111" text-anchor="middle">DB-P2</text>
+<text x="110" y="481" font-size="10" fill="#444" text-anchor="middle">192.168.16.50 (DHCP)</text>
+<text x="110" y="509" font-size="10" fill="#0a7d4f" text-anchor="middle">(Linux)</text>
+<rect x="476" y="84" width="120" height="52" rx="10" fill="#fff" stroke="#1f6feb" stroke-width="2.5"/>
+<text x="536" y="106" font-size="12.5" font-weight="700" fill="#111" text-anchor="middle">R2 (C2691)</text>
+<text x="536" y="124" font-size="10" fill="#444" text-anchor="middle">f0/0 10.16.0.2/30</text>
+<text x="536" y="137" font-size="10" fill="#444" text-anchor="middle">Lo0 2.2.2.2/32</text>
+<rect x="471" y="442" width="150" height="52" rx="10" fill="#fff" stroke="#0a7d4f" stroke-width="2.5"/>
+<text x="546" y="464" font-size="12.5" font-weight="700" fill="#111" text-anchor="middle">Windows Server 2022</text>
+<text x="546" y="482" font-size="10" fill="#444" text-anchor="middle">192.168.16.51 (DHCP)</text>
+<text x="546" y="510" font-size="10" fill="#0a7d4f" text-anchor="middle">AD DS + NPS</text>
+<text x="24" y="585" font-size="11" fill="#555">LAN: 192.168.16.0/24 (gw .1) · Enlace WAN: 10.16.0.0/30 · OSPF 1 area 0 con MD5</text>
+<text x="24" y="602" font-size="11" fill="#555">Azul = Dynamips IOS · Violeta = IOSvL2 (QEMU) · Verde = VM VMware Workstation</text>
+</svg>

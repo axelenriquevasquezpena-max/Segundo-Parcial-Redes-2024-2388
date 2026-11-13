@@ -1,0 +1,19 @@
+### R2 -> ssh -l admin 192.168.16.1 (R1) ###
+C*** PARCIAL REDES - Acceso restringido a personal autorizado ***
+Password: 
+
+
+R1#
+SSH Enabled - version 2.0
+Authentication timeout: 60 secs; Authentication retries: 3
+R1#
+*00:35:38.723 UTC Fri Mar 1 2002
+R1#
+
+[Connection to 192.168.16.1 closed by foreign host]
+
+### Configuracion vty / SSH en R1 ###
+line vty 0 4
+ logging synchronous
+ login local
+ transport input ssh

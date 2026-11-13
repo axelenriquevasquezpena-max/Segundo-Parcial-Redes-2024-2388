@@ -1,0 +1,24 @@
+Requisito 8 - Zabbix monitoreando R1 y SW1 por SNMPv3
+Fecha: 2026-11-13 11:11 (hora del laboratorio)
+Servidor: Zabbix 7.0.29 sobre Kali Linux 192.168.16.52
+URL: http://192.168.16.52/zabbix
+
+Hosts registrados por API (grupo "Laboratorio Redes", plantilla "Cisco IOS by SNMP"):
+  R1   192.168.16.1  SNMPv3 authPriv SHA/DES     hostid 10683
+  SW1  192.168.16.2  SNMPv3 authPriv SHA/AES128  hostid 10684
+
+Valores reales recolectados (item.get, estado=0 sin error):
+== R1 ==
+  sysDescr  = "Cisco IOS Software, 2600 Software (C2691-ADVSECURITYK9-M), Version 12.4(25d)..."
+  sysName   = "R1.parcial.local"
+  sysUpTime = 123494  (timeticks)  ultimo=2026-11-13 11:11:01
+  triggers  = 5
+
+== SW1 ==
+  sysDescr  = "Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M)..."
+  sysName   = "SW1.parcial.local"
+  sysUpTime = 120992  (timeticks)  ultimo=2026-11-13 11:11:02
+  triggers  = 5
+
+Ambos hosts quedaron habilitados y sondeando por UDP/161 con credenciales SNMPv3
+(usuario zabbix, grupo CIS-GRP). No se almacenan secretos en esta evidencia.

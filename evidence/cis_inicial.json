@@ -1,0 +1,284 @@
+{
+  "R1": {
+    "data": {
+      "running-config": "Building configuration...\n\nCurrent configuration : 1829 bytes\n!\nversion 12.4\nservice timestamps debug datetime msec\nservice timestamps log datetime msec\nservice password-encryption\n!\nhostname R1\n!\nboot-start-marker\nboot-end-marker\n!\nenable secret 5 <REDACTADO>\n!\nno aaa new-model\n\nmemory-size iomem 5\nno ip source-route\nno ip icmp rate-limit unreachable\nip cef\n!\n!\nip auth-proxy max-nodata-conns 3\nip admission max-nodata-conns 3\nno ip dhcp use vrf connected\nip dhcp excluded-address 192.168.16.1 192.168.16.49\n\n!\nip dhcp pool LAN\n   network 192.168.16.0 255.255.255.0\n   default-router 192.168.16.1 \n   dns-server 192.168.16.51 8.8.8.8 \n   lease 0 8\n!\nip dhcp pool SRV-AD\n   host 192.168.16.51 255.255.255.0\n   client-identifier 0100.0c29.f7e0.b0\n   default-router 192.168.16.1 \n   dns-server 192.168.16.51 \n!\n!\nno ip domain lookup\n\nip domain name parcial.local\n!\n!\n!\n!\nusername admin privilege 15 secret 5 <REDACTADO>\n!\n!\nip tcp synwait-time 5\nip ssh time-out 60\nip ssh version 2\n! \n!\n!\n!\ninterface FastEthernet0/0\n description LAN-hacia-SW1\n ip address 192.168.16.1 255.255.255.0\n speed 100\n full-duplex\n!\ninterface FastEthernet0/1\n ip address 10.16.0.1 255.255.255.252\n ip ospf authentication message-digest\n ip ospf message-digest-key 1 md5 7 <REDACTADO>\n\n duplex auto\n speed auto\n!\nrouter ospf 1\n router-id 1.1.1.1\n log-adjacency-changes\n network 10.16.0.0 0.0.0.3 area 0\n network 192.168.16.0 0.0.0.255 area 0\n!\nip forward-protocol nd\n!\nno ip http server\nno ip http secure-server\n!\nno cdp log mismatch duplex\n!\n!\ncontrol-plane\n!\n!\n!\nbanner login ^CC*** PARCIAL REDES - Acceso restringido a personal autorizado ***^C\n\n!\nline con 0\n exec-timeout 0 0\n privilege level 15\n logging synchronous\nline aux 0\n exec-timeout 0 0\n privilege level 15\n logging synchronous\nline vty 0 4\n logging synchronous\n login local\n transport input ssh\n!\n!\nend",
+      "version": "Cisco IOS Software, 2600 Software (C2691-ADVSECURITYK9-M), Version 12.4(25d), RELEASE SOFTWARE (fc1)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2010 by Cisco Systems, Inc.\nCompiled Wed 18-Aug-10 05:35 by prod_rel_team\n\nROM: ROMMON Emulation Microcode\nROM: 2600 Software (C2691-ADVSECURITYK9-M), Version 12.4(25d), RELEASE SOFTWARE (fc1)\n\nR1 uptime is 40 minutes\nSystem returned to ROM by unknown reload cause - suspect boot_data[BOOT_COUNT] 0x0, BOOT_COUNT 0, BOOTDATA 19\nSystem image file is \"tftp://255.255.255.255/unknown\"\n\n\nThis product contains cryptographic features and is subject to United\nStates and local country laws governing import, export, transfer and\nuse. Delivery of Cisco cryptographic products does not imply\nthird-party authority to import, export, distribute or use encryption.\nImporters, exporters, distributors and users are responsible for\ncompliance with U.S. and local country laws. By using this product you\nagree to comply with applicable laws and regulations. If you are unable\nto comply with U.S. and local laws, return this product immediately.\n\nA summary of U.S. laws governing Cisco cryptographic products may be found at:\nhttp://www.cisco.com/wwl/export/crypto/tool/stqrg.html\n\nIf you require further assistance please contact us by sending email to\n\nexport@cisco.com.\n\nCisco 2691 (R7000) processor (revision 0.1) with 249856K/12288K bytes of memory.\nProcessor board ID XXXXXXXXXXX\nR7000 CPU at 160MHz, Implementation 39, Rev 2.1, 256KB L2, 512KB L3 Cache\n2 FastEthernet interfaces\nDRAM configuration is 64 bits wide with parity enabled.\n55K bytes of NVRAM.\n\nConfiguration register is 0x2102",
+      "ip ssh": "SSH Enabled - version 2.0\nAuthentication timeout: 60 secs; Authentication retries: 3"
+    },
+    "rows": [
+      {
+        "id": "CIS 1.1.1",
+        "control": "Autenticacion privilegiada con 'enable secret'",
+        "status": "PASS",
+        "detail": "enable secret <REDACTADO>"
+      },
+      {
+        "id": "CIS 1.1.2",
+        "control": "No usar 'enable password' en claro",
+        "status": "PASS",
+        "detail": "no se usa enable password"
+      },
+      {
+        "id": "CIS 1.1.3",
+        "control": "Cifrado de passwords en configuracion",
+        "status": "PASS",
+        "detail": "service password-encryption activo"
+      },
+      {
+        "id": "CIS 1.1.4",
+        "control": "Banner de acceso autorizado",
+        "status": "PASS",
+        "detail": "banner login definido"
+      },
+      {
+        "id": "CIS 1.2.1",
+        "control": "Telnet deshabilitado para administracion",
+        "status": "PASS",
+        "detail": "vty: transport input ssh"
+      },
+      {
+        "id": "CIS 1.2.2",
+        "control": "SSH version 2",
+        "status": "PASS",
+        "detail": "ip ssh version 2 / SSH Enabled 2.0"
+      },
+      {
+        "id": "CIS 1.2.3",
+        "control": "Clave RSA >= 2048 bits",
+        "status": "FAIL",
+        "detail": "RSA 1024 bits (debil); regenerar a 2048"
+      },
+      {
+        "id": "CIS 1.2.4",
+        "control": "Usuario local con secreto y privilegio definido",
+        "status": "PASS",
+        "detail": "username admin privilege 15 secret"
+      },
+      {
+        "id": "CIS 1.2.5",
+        "control": "Timeout de inactividad en vty <= 10 min",
+        "status": "FAIL",
+        "detail": "vty sin exec-timeout (default 10 min, explicito requerido)"
+      },
+      {
+        "id": "CIS 1.2.6",
+        "control": "Timeout de inactividad en linea consola",
+        "status": "FAIL",
+        "detail": "consola sin exec-timeout o en 0 0 (sesion infinita)"
+      },
+      {
+        "id": "CIS 1.3.1",
+        "control": "Servidor HTTP/HTTPS deshabilitado",
+        "status": "PASS",
+        "detail": "no ip http server / secure-server"
+      },
+      {
+        "id": "CIS 1.3.2",
+        "control": "Source routing deshabilitado",
+        "status": "PASS",
+        "detail": "no ip source-route"
+      },
+      {
+        "id": "CIS 1.3.3",
+        "control": "Servicios innecesarios (pad, tcp-small, udp-small, finger)",
+        "status": "FAIL",
+        "detail": "faltan 'no service pad/tcp-small-servers/udp-small-servers'"
+      },
+      {
+        "id": "CIS 1.4.1",
+        "control": "Syslog a servidor central",
+        "status": "FAIL",
+        "detail": "sin servidor syslog (logs solo en buffer local)"
+      },
+      {
+        "id": "CIS 1.4.2",
+        "control": "NTP configurado",
+        "status": "FAIL",
+        "detail": "sin NTP; hora manual (reloj no confiable)"
+      },
+      {
+        "id": "CIS 1.5.1",
+        "control": "SNMPv3 (sin communities v1/v2c)",
+        "status": "FAIL",
+        "detail": "sin SNMPv3"
+      },
+      {
+        "id": "CIS 1.5.2",
+        "control": "Sin communities SNMP por defecto (public/private)",
+        "status": "PASS",
+        "detail": "sin communities inseguras"
+      },
+      {
+        "id": "CIS 2.1.1",
+        "control": "Autenticacion de protocolos de routing",
+        "status": "PASS",
+        "detail": "OSPF con message-digest"
+      },
+      {
+        "id": "CIS 2.1.2",
+        "control": "Interfaces sin OSPF marcadas passive-interface",
+        "status": "FAIL",
+        "detail": "OSPF anuncia en todas las interfaces habilitadas"
+      },
+      {
+        "id": "CIS 2.2.1",
+        "control": "CDP deshabilitado en interfaces de usuario",
+        "status": "FAIL",
+        "detail": "CDP activo en todas las interfaces (fuga de informacion)"
+      },
+      {
+        "id": "CIS 3.1.1",
+        "control": "AAA centralizado (RADIUS/TACACS+)",
+        "status": "FAIL",
+        "detail": "solo autenticacion local, sin AAA central"
+      },
+      {
+        "id": "CIS 3.2.1",
+        "control": "CoPP en control-plane",
+        "status": "FAIL",
+        "detail": "sin politica de control-plane (CoPP)"
+      }
+    ]
+  },
+  "SW1": {
+    "data": {
+      "running-config": "Building configuration...\n\nCurrent configuration : 3189 bytes\n!\n! Last configuration change at 14:09:00 UTC Fri Nov 13 2026\n!\nversion 15.2\nservice timestamps debug datetime msec\nservice timestamps log datetime msec\nservice password-encryption\n\nservice compress-config\n!\nhostname SW1\n!\nboot-start-marker\nboot-end-marker\n!\n!\nenable secret 5 <REDACTADO>\n!\nusername admin privilege 15 secret 5 <REDACTADO>\n\nno aaa new-model\n!\n!\n!\n!\n!\nno ip source-route\n!\n!\n!\nip domain-name parcial.local\nip cef\nno ipv6 cef\n!\n!\n!\nspanning-tree mode pvst\nspanning-tree extend system-id\n!\n!\n! \n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ninterface GigabitEthernet0/0\n description UPLINK-R1-f0/0\n negotiation auto\n!\ninterface GigabitEthernet0/1\n description DB-P2\n negotiation auto\n!\ninterface GigabitEthernet0/2\n description Kali-Zabbix\n negotiation auto\n!\ninterface GigabitEthernet0/3\n description WindowsServer-AD-NPS\n negotiation auto\n!\ninterface GigabitEthernet1/0\n negotiation auto\n\n!\ninterface GigabitEthernet1/1\n negotiation auto\n!\ninterface GigabitEthernet1/2\n negotiation auto\n!\ninterface GigabitEthernet1/3\n negotiation auto\n!\ninterface GigabitEthernet2/0\n negotiation auto\n\n!\ninterface GigabitEthernet2/1\n negotiation auto\n!\ninterface GigabitEthernet2/2\n negotiation auto\n!\ninterface GigabitEthernet2/3\n negotiation auto\n!\ninterface GigabitEthernet3/0\n negotiation auto\n\n!\ninterface GigabitEthernet3/1\n negotiation auto\n!\ninterface GigabitEthernet3/2\n negotiation auto\n!\ninterface GigabitEthernet3/3\n negotiation auto\n!\ninterface Vlan1\n description Gestion-LAN\n ip address 192.168.16.2 255.255.255.0\n!\nip forward-protocol nd\n!\nno ip http server\nno ip http secure-server\n!\nip route 0.0.0.0 0.0.0.0 192.168.16.1\nip ssh time-out 60\nip ssh version 2\nip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr\nip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\nbanner exec ^C\nIOSv - Cisco Systems Confidential -\n\nSupplemental End User License Restrictions\n\nThis IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.\n\nBy using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.\n^C\nbanner incoming ^C\nIOSv - Cisco Systems Confidential -\n\nSupplemental End User License Restrictions\n\nThis IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.\n\nBy using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.\n^C\nbanner login ^CC*** PARCIAL REDES - Acceso restringido a personal autorizado ***^C\n!\nline con 0\nline aux 0\nline vty 0 4\n logging synchronous\n login local\n transport input ssh\n!\n!\nend\n\nSW1#",
+      "version": "Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M), Experimental Version 15.2(20200924:215240) [sweickge-sep24-2020-l2iol-release 135]\nCopyright (c) 1986-2020 by Cisco Systems, Inc.\nCompiled Tue 29-Sep-20 11:53 by sweickge\n\n\nROM: Bootstrap program is IOSv\n\nSW1 uptime is 40 minutes\nSystem returned to ROM by reload\nSystem image file is \"flash0:/vios_l2-adventerprisek9-m\"\nLast reload reason: Unknown reason\n\n\n\nThis product contains cryptographic features and is subject to United\nStates and local country laws governing import, export, transfer and\n\nuse. Delivery of Cisco cryptographic products does not imply\nthird-party authority to import, export, distribute or use encryption.\nImporters, exporters, distributors and users are responsible for\ncompliance with U.S. and local country laws. By using this product you\n\nagree to comply with applicable laws and regulations. If you are unable\nto comply with U.S. and local laws, return this product immediately.\n\nA summary of U.S. laws governing Cisco cryptographic products may be found at:\nhttp://www.cisco.com/wwl/export/crypto/tool/stqrg.html\n\nIf you require further assistance please contact us by sending email to\nexport@cisco.com.\n\nCisco IOSv () processor (revision 1.0) with 574709K/209920K bytes of memory.\nProcessor board ID 9RRG149CC8Z\n1 Virtual Ethernet interface\n16 Gigabit Ethernet interfaces\nDRAM configuration is 72 bits wide with parity disabled.\n256K bytes of non-volatile configuration memory.\n0K bytes of ATA System CompactFlash 0 (Read/Write)\n0K bytes of ATA CompactFlash 1 (Read/Write)\n0K bytes of ATA CompactFlash 2 (Read/Write)\n0K bytes of ATA CompactFlash 3 (Read/Write)\n\nConfiguration register is 0x101\n\nSW1#",
+      "ip ssh": "SSH Enabled - version 2.0\nAuthentication methods:publickey,keyboard-interactive,password\nAuthentication Publickey Algorithms:x509v3-ssh-rsa,ssh-rsa\nHostkey Algorithms:x509v3-ssh-rsa,ssh-rsa\nEncryption Algorithms:aes128-ctr,aes192-ctr,aes256-ctr\nMAC Algorithms:hmac-sha1,hmac-sha1-96\nAuthentication timeout: 60 secs; Authentication retries: 3\nMinimum expected Diffie Hellman key size : 1024 bits\nIOS Keys in SECSH format(ssh-rsa, base64 encoded): SW1.parcial.local\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0Vt8ArO9AZzem0gOA2s8L+BztWNNcg2jB4d9ZZRxu\nRpkkhxrFfrh9++ktBKqsuIq21/kXu3BVer0lp/bpGUz1f/ouyw4LL7POeBAGc3ODsz4J8V8BKh7ZXF4A\nYxvU3b7w0iaQ4R0QBOMrev2mnIyV67vquilPle3DOHK4IQyVDLU9rctiEnBXUQF1NsNTmmyJ+JcSnsox\ni0W/SLwpXAXjgTZozwfQUIG0hPgIWPvLxFbkNT5DQ8hU0sRp/l/DVFf1K8gf0JEC+f8JvfSk20LSDR4X\nhHLowfMtIXqusiEUf6RLpvPEyjZcEGTkeL9tvo9a6YZ6LtzWeMZRj9fPdPPl                    \nSW1#"
+    },
+    "rows": [
+      {
+        "id": "CIS 1.1.1",
+        "control": "Autenticacion privilegiada con 'enable secret'",
+        "status": "PASS",
+        "detail": "enable secret <REDACTADO>"
+      },
+      {
+        "id": "CIS 1.1.2",
+        "control": "No usar 'enable password' en claro",
+        "status": "PASS",
+        "detail": "no se usa enable password"
+      },
+      {
+        "id": "CIS 1.1.3",
+        "control": "Cifrado de passwords en configuracion",
+        "status": "PASS",
+        "detail": "service password-encryption activo"
+      },
+      {
+        "id": "CIS 1.1.4",
+        "control": "Banner de acceso autorizado",
+        "status": "PASS",
+        "detail": "banner login definido"
+      },
+      {
+        "id": "CIS 1.2.1",
+        "control": "Telnet deshabilitado para administracion",
+        "status": "PASS",
+        "detail": "vty: transport input ssh"
+      },
+      {
+        "id": "CIS 1.2.2",
+        "control": "SSH version 2",
+        "status": "PASS",
+        "detail": "ip ssh version 2 / SSH Enabled 2.0"
+      },
+      {
+        "id": "CIS 1.2.3",
+        "control": "Clave RSA >= 2048 bits",
+        "status": "FAIL",
+        "detail": "RSA 1024 bits (debil); regenerar a 2048"
+      },
+      {
+        "id": "CIS 1.2.4",
+        "control": "Usuario local con secreto y privilegio definido",
+        "status": "PASS",
+        "detail": "username admin privilege 15 secret"
+      },
+      {
+        "id": "CIS 1.2.5",
+        "control": "Timeout de inactividad en vty <= 10 min",
+        "status": "FAIL",
+        "detail": "vty sin exec-timeout (default 10 min, explicito requerido)"
+      },
+      {
+        "id": "CIS 1.2.6",
+        "control": "Timeout de inactividad en linea consola",
+        "status": "FAIL",
+        "detail": "consola sin exec-timeout o en 0 0 (sesion infinita)"
+      },
+      {
+        "id": "CIS 1.3.1",
+        "control": "Servidor HTTP/HTTPS deshabilitado",
+        "status": "PASS",
+        "detail": "no ip http server / secure-server"
+      },
+      {
+        "id": "CIS 1.3.2",
+        "control": "Source routing deshabilitado",
+        "status": "PASS",
+        "detail": "no ip source-route"
+      },
+      {
+        "id": "CIS 1.3.3",
+        "control": "Servicios innecesarios (pad, tcp-small, udp-small, finger)",
+        "status": "FAIL",
+        "detail": "faltan 'no service pad/tcp-small-servers/udp-small-servers'"
+      },
+      {
+        "id": "CIS 1.4.1",
+        "control": "Syslog a servidor central",
+        "status": "FAIL",
+        "detail": "sin servidor syslog (logs solo en buffer local)"
+      },
+      {
+        "id": "CIS 1.4.2",
+        "control": "NTP configurado",
+        "status": "FAIL",
+        "detail": "sin NTP; hora manual (reloj no confiable)"
+      },
+      {
+        "id": "CIS 1.5.1",
+        "control": "SNMPv3 (sin communities v1/v2c)",
+        "status": "FAIL",
+        "detail": "sin SNMPv3"
+      },
+      {
+        "id": "CIS 1.5.2",
+        "control": "Sin communities SNMP por defecto (public/private)",
+        "status": "PASS",
+        "detail": "sin communities inseguras"
+      },
+      {
+        "id": "CIS 2.1.1",
+        "control": "Autenticacion de protocolos de routing",
+        "status": "FAIL",
+        "detail": "OSPF sin autenticacion"
+      },
+      {
+        "id": "CIS 2.1.2",
+        "control": "Interfaces sin OSPF marcadas passive-interface",
+        "status": "FAIL",
+        "detail": "OSPF anuncia en todas las interfaces habilitadas"
+      },
+      {
+        "id": "CIS 2.2.1",
+        "control": "CDP deshabilitado en interfaces de usuario",
+        "status": "FAIL",
+        "detail": "CDP activo en todas las interfaces (fuga de informacion)"
+      },
+      {
+        "id": "CIS 3.1.1",
+        "control": "AAA centralizado (RADIUS/TACACS+)",
+        "status": "FAIL",
+        "detail": "solo autenticacion local, sin AAA central"
+      },
+      {
+        "id": "CIS 3.2.1",
+        "control": "CoPP en control-plane",
+        "status": "FAIL",
+        "detail": "sin politica de control-plane (CoPP)"
+      }
+    ]
+  }
+}

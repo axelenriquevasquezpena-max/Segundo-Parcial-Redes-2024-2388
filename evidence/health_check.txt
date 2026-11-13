@@ -1,0 +1,192 @@
+# Chequeo de salud 2026-11-13 10:36:50
+
+
+===== R1 =====
+
+--- show clock ---
+14:36:51.707 UTC Fri Nov 13 2026
+
+--- show ip interface brief ---
+
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.16.1    YES NVRAM  up                    up      
+FastEthernet0/1            10.16.0.1       YES NVRAM  up                    up      
+
+--- show ip ospf neighbor ---
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+2.2.2.2           1   FULL/BDR        00:00:34    10.16.0.2       FastEthernet0/1
+
+--- show ip dhcp binding ---
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/	 	    Lease expiration        Type
+		    Hardware address/
+		    User name
+192.168.16.51       0100.0c29.f7e0.b0       Infinite                Manual
+
+
+--- show ip ssh ---
+SSH Enabled - version 2.0
+Authentication timeout: 60 secs; Authentication retries: 3
+
+--- show snmp user ---
+
+User name: zabbix
+Engine ID: 800000090300C001090D0000
+storage-type: nonvolatile	 active
+Authentication Protocol: SHA
+Privacy Protocol: DES
+Group-name: CIS-GRP
+
+
+--- show snmp group ---
+
+groupname: ILMI                             security model:v1 
+
+readview : *ilmi                            writeview: *ilmi                           
+notifyview: <no notifyview specified>       
+row status: active
+
+groupname: ILMI                             security model:v2c 
+readview : *ilmi                            writeview: *ilmi                           
+notifyview: <no notifyview specified>       
+row status: active
+
+groupname: CIS-GRP                          security model:v3 priv 
+
+readview : CIS-VIEW                         writeview: <no writeview specified>        
+notifyview: <no notifyview specified>       
+row status: active
+
+
+--- show run | include ip dhcp pool|network|default-router|dns-server|lease ---
+ip dhcp pool LAN
+   network 192.168.16.0 255.255.255.0
+   default-router 192.168.16.1 
+   dns-server 192.168.16.51 8.8.8.8 
+   lease 0 8
+ip dhcp pool SRV-AD
+   default-router 192.168.16.1 
+   dns-server 192.168.16.51 
+ network 10.16.0.0 0.0.0.3 area 0
+ network 192.168.16.0 0.0.0.255 area 0
+
+--- show users ---
+    Line       User       Host(s)              Idle       Location
+*  0 con 0                idle                 00:00:00   
+
+  Interface    User               Mode         Idle     Peer Address
+
+
+===== R2 =====
+
+--- show clock ---
+14:37:01.679 UTC Fri Nov 13 2026
+
+--- show ip interface brief ---
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            10.16.0.2       YES manual up                    up      
+FastEthernet0/1            unassigned      YES unset  administratively down down    
+Loopback0                  2.2.2.2         YES manual up                    up      
+
+
+--- show ip ospf neighbor ---
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           1   FULL/DR         00:00:30    10.16.0.1       FastEthernet0/0
+
+--- show ip ssh ---
+SSH Enabled - version 2.0
+Authentication timeout: 60 secs; Authentication retries: 3
+
+--- show run | section line vty ---
+line vty 0 4
+ logging synchronous
+ login local
+ transport input ssh
+
+===== SW =====
+
+--- show clock ---
+14:36:45.078 UTC Fri Nov 13 2026
+SW1#
+
+--- show ip interface brief | include Vlan1 ---
+Vlan1                  192.168.16.2    YES manual up                    up      
+SW1#
+
+--- show ip route ---
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 192.168.16.1 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.16.1
+      192.168.16.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.16.0/24 is directly connected, Vlan1
+L        192.168.16.2/32 is directly connected, Vlan1
+SW1#
+
+--- show ip ssh ---
+SSH Enabled - version 2.0
+Authentication methods:publickey,keyboard-interactive,password
+Authentication Publickey Algorithms:x509v3-ssh-rsa,ssh-rsa
+Hostkey Algorithms:x509v3-ssh-rsa,ssh-rsa
+Encryption Algorithms:aes128-ctr,aes192-ctr,aes256-ctr
+MAC Algorithms:hmac-sha1,hmac-sha1-96
+Authentication timeout: 60 secs; Authentication retries: 3
+Minimum expected Diffie Hellman key size : 1024 bits
+IOS Keys in SECSH format(ssh-rsa, base64 encoded): SW1.parcial.local
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0Vt8ArO9AZzem0gOA2s8L+BztWNNcg2jB4d9ZZRxu
+RpkkhxrFfrh9++ktBKqsuIq21/kXu3BVer0lp/bpGUz1f/ouyw4LL7POeBAGc3ODsz4J8V8BKh7ZXF4A
+YxvU3b7w0iaQ4R0QBOMrev2mnIyV67vquilPle3DOHK4IQyVDLU9rctiEnBXUQF1NsNTmmyJ+JcSnsox
+i0W/SLwpXAXjgTZozwfQUIG0hPgIWPvLxFbkNT5DQ8hU0sRp/l/DVFf1K8gf0JEC+f8JvfSk20LSDR4X
+hHLowfMtIXqusiEUf6RLpvPEyjZcEGTkeL9tvo9a6YZ6LtzWeMZRj9fPdPPl                    
+SW1#
+
+--- show snmp user ---
+
+User name: zabbix
+Engine ID: 8000000903000C8A27300000
+storage-type: nonvolatile	 active
+Authentication Protocol: SHA
+Privacy Protocol: AES128
+Group-name: CIS-GRP
+
+
+--- show run | section line vty ---
+line vty 0 4
+ logging synchronous
+ login local
+ transport input ssh
+SW1#
+SW
+
+--- show interfaces status ---
+
+Port      Name               Status       Vlan       Duplex  Speed Type 
+Gi0/0     UPLINK-R1-f0/0     connected    1          a-full   auto RJ45
+Gi0/1     DB-P2              connected    1          a-full   auto RJ45
+Gi0/2     Kali-Zabbix        connected    1          a-full   auto RJ45
+Gi0/3     WindowsServer-AD-N connected    1          a-full   auto RJ45
+Gi1/0                        notconnect   1          a-full   auto RJ45
+
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/1                        notconnect   1          a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+SW1#

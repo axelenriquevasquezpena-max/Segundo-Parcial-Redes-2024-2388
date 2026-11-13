@@ -1,0 +1,130 @@
+[*] Windows Server 2022 Build 20348 (name:DC01) (domain:parcial.local) 
+[+] parcial.local\********:******** (Pwn3d!)
+[+] Executed command (shell type: cmd)
+== FECHA Y HORA DEL SERVIDOR ==
+2026-11-13 12:00:11 -04:00
+(UTC-04:00) Georgetown, La Paz, Manaus, San Juan
+
+== DOMINIO ==
+
+
+DNSRoot           : parcial.local
+NetBIOSName       : PARCIAL
+DistinguishedName : DC=parcial,DC=local
+DomainMode        : Windows2016Domain
+
+
+
+
+
+Name           : parcial.local
+ForestMode     : Windows2016Forest
+GlobalCatalogs : {DC01.parcial.local}
+
+
+
+== CONTROLADOR ==
+
+Name IPv4Address   OperatingSystem                         IsGlobalCatalog Enabled
+---- -----------   ---------------                         --------------- -------
+DC01 192.168.16.51 Windows Server 2022 Standard Evaluation            True    True
+
+
+
+== UNIDADES ORGANIZATIVAS ==
+OU=Domain Controllers,DC=parcial,DC=local
+OU=Laboratorio,DC=parcial,DC=local
+OU=Usuarios,OU=Laboratorio,DC=parcial,DC=local
+OU=Grupos,OU=Laboratorio,DC=parcial,DC=local
+OU=Equipos,OU=Laboratorio,DC=parcial,DC=local
+
+== USUARIOS ==
+
+SamAccountName Name                Title                   Enabled msNPAllowDialin
+-------------- ----                -----                   ------- ---------------
+vasquez        Axel Vasquez Pena   Administrador de red       True            True
+radius1        Usuario RADIUS Demo Cuenta de prueba RADIUS    True            True
+
+
+== GRUPOS Y MIEMBROS ==
+GRP-Administradores-TI: vasquez
+GRP-Usuarios-RADIUS: radius1
+
+== DNS ==
+
+ZoneName             ZoneType IsDsIntegrated
+--------             -------- --------------
+_msdcs.parcial.local Primary            True
+parcial.local        Primary            True
+
+
+
+Name               IPAddress
+----               ---------
+DC01.parcial.local 192.168.16.51
+
+
+
+== NPS ==
+
+Name  Status StartType
+----  ------ ---------
+IAS  Running Automatic
+
+
+
+Name      Address       Enabled
+----      -------       -------
+R1        192.168.16.1     True
+SW1       192.168.16.2     True
+KALI-TEST 192.168.16.52    True
+
+
+== POLITICA DE RED (tipos de autenticacion) ==
+
+Name             = Connections to other access servers
+NP-Authentication-Type                  0x1009      "0x3" "0x4" "0x9" "0xa" "0x1"
+Name             = Connections to Microsoft Routing and Remote Access server
+NP-Authentication-Type                  0x1009      "0x5" "0x4" "0xa" "0x3" "0x9"
+== ESCUCHA RADIUS ==
+
+
+
+LocalAddress               LocalPort
+------------               ---------
+fe80::e883:6c12:83d6:f6f%5      1813
+::ffff:192.168.16.51            1813
+fe80::e883:6c12:83d6:f6f%5      1812
+::ffff:192.168.16.51            1812
+
+
+== REGLA DE FIREWALL (solo laboratorio) ==
+
+DisplayName            Enabled Direction Action Profile
+-----------            ------- --------- ------ -------
+RADIUS Laboratorio UDP    True   Inbound  Allow     Any
+
+
+
+Protocol LocalPort
+-------- ---------
+UDP      {1812, 1813}
+
+
+
+RemoteAddress
+-------------
+192.168.16.0/255.255.255.0
+
+
+== PERFILES DE FIREWALL ==
+
+Name    Enabled
+----    -------
+Domain     True
+Private    True
+Public     True
+
+
+
+

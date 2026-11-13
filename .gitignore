@@ -1,0 +1,22 @@
+# Bóveda local de secretos (NO publicar)
+.vault/
+
+# Respaldos con configuraciones que pueden contener claves
+backups/
+
+# Capturas de escritorio que puedan contener información personal
+evidence/vm/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Archivos de entrega con datos personales (se publican aparte)
+Nombre_Matricula_P2.txt

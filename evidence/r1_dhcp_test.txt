@@ -1,0 +1,128 @@
+### R1: estadisticas DHCP antes ###
+Memory usage         25132
+Address pools        2
+Database agents      0
+Automatic bindings   1
+Manual bindings      1
+Expired bindings     0
+Malformed messages   0
+Secure arp entries   0
+
+Message              Received
+BOOTREQUEST          0
+DHCPDISCOVER         2
+DHCPREQUEST          2
+DHCPDECLINE          0
+DHCPRELEASE          0
+DHCPINFORM           0
+
+Message              Sent
+BOOTREPLY            0
+DHCPOFFER            2
+DHCPACK              2
+DHCPNAK              0
+
+### SW1: Vlan1 pasa a cliente DHCP (temporal) ###
+
+SW1#
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#
+SW1(config)#interface Vlan1
+SW1(config-if)#
+SW1(config-if)#no ip address
+SW1(config-if)#
+SW1(config-if)#ip address dhcp
+SW1(config-if)#
+SW1(config-if)#
+SW1(config-if)#end
+SW1#
+
+SW1#
+SW1#
+*Nov 13 14:08:24.189: %SYS-5-CONFIG_I: Configured from console by console
+*Nov 13 14:08:32.212: %DHCP-6-ADDRESS_ASSIGN: Interface Vlan1 assigned DHCP address 192.168.16.52, mask 255.255.255.0, hostname SW1
+show dhcp lease
+Temp IP addr: 192.168.16.52  for peer on Interface: Vlan1
+Temp  sub net mask: 255.255.255.0
+   DHCP Lease server: 192.168.16.1, state: 5 Bound
+   DHCP transaction id: 209E
+   Lease: 28800 secs,  Renewal: 14400 secs,  Rebind: 25200 secs
+Temp default-gateway addr: 192.168.16.1
+   Next timer fires after: 03:59:43
+   Retry count: 0   Client-ID: cisco-0c8a.2730.8001-Vl1
+   Client-ID hex dump: 636973636F2D306338612E323733302E
+                       383030312D566C31
+   Hostname: SW1
+SW1#
+Vlan1                  192.168.16.52   YES DHCP   up                    up      
+SW1#
+
+### R1: tabla de bindings (debe aparecer un lease nuevo .52) ###
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/	 	    Lease expiration        Type
+		    Hardware address/
+		    User name
+192.168.16.50       ff2b.9434.c100.0200.    Mar 02 2002 12:01 AM    Automatic
+                    00ab.11d1.5623.315d.
+                    22da.4c
+192.168.16.51       0100.0c29.f7e0.b0       Infinite                Manual
+192.168.16.52       0063.6973.636f.2d30.    Mar 01 2002 08:37 AM    Automatic
+                    6338.612e.3237.3330.
+                    2e38.3030.312d.566c.
+                    31
+
+### Restaurando direccionamiento estatico de SW1 ###
+
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#
+SW1(config)#interface Vlan1
+SW1(config-if)#
+SW1(config-if)#no ip address dhcp
+
+SW1(config-if)#ip address 192.168.16.2 255.255.255.0
+SW1(config-if)#
+SW1(config-if)#no shutdown
+SW1(config-if)#
+SW1(config-if)#
+SW1(config-if)#
+SW1(config-if)#end
+SW1#
+Vlan1                  192.168.16.2    YES manual up                    up      
+SW1#
+Building configuration...
+Compressed configuration from 3189 bytes to 1884 bytes[OK]
+
+### R1: estadisticas DHCP despues ###
+Memory usage         25132
+Address pools        2
+Database agents      0
+Automatic bindings   1
+Manual bindings      1
+Expired bindings     0
+Malformed messages   0
+Secure arp entries   0
+
+Message              Received
+BOOTREQUEST          0
+DHCPDISCOVER         3
+DHCPREQUEST          3
+DHCPDECLINE          0
+DHCPRELEASE          3
+DHCPINFORM           0
+
+Message              Sent
+BOOTREPLY            0
+DHCPOFFER            3
+DHCPACK              3
+DHCPNAK              0
+
+### Conectividad post-restauracion: R1 -> SW1 ###
+
+Type escape sequence to abort.
+Sending 4, 100-byte ICMP Echos to 192.168.16.2, timeout is 2 seconds:
+!!!!
+Success rate is 100 percent (4/4), round-trip min/avg/max = 4/24/32 ms
